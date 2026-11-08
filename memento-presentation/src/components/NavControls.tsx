@@ -1,51 +1,56 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface NavControlsProps {
   onPrev: () => void;
   onNext: () => void;
-  canPrev: boolean;
-  canNext: boolean;
 }
 
-const btnStyle = (enabled: boolean): React.CSSProperties => ({
+const btnStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '2.4rem',
-  height: '2.4rem',
+  width: 'clamp(36px, 3.5vw, 52px)',
+  height: 'clamp(36px, 3.5vw, 52px)',
+  border: '1px solid rgba(166,166,161,0.2)',
   borderRadius: '50%',
-  border: `1px solid ${enabled ? 'rgba(166,166,161,0.4)' : 'rgba(166,166,161,0.1)'}`,
-  background: 'rgba(0,0,0,0.3)',
-  color: enabled ? 'var(--color-ash)' : 'rgba(166,166,161,0.2)',
-  cursor: enabled ? 'pointer' : 'default',
-  transition: 'all 0.2s ease',
+  background: 'rgba(11,11,12,0.6)',
   backdropFilter: 'blur(8px)',
-  WebkitBackdropFilter: 'blur(8px)',
-});
+  cursor: 'pointer',
+  color: 'var(--color-ash)',
+  transition: 'border-color 0.2s, color 0.2s',
+};
 
-export default function NavControls({ onPrev, onNext, canPrev, canNext }: NavControlsProps) {
+export default function NavControls({ onPrev, onNext }: NavControlsProps) {
+  const iconSize = 20;
+
   return (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-      <button
+    <div style={{
+      position: 'absolute',
+      bottom: '2%',
+      right: '3%',
+      display: 'flex',
+      gap: 'clamp(8px, 1vw, 16px)',
+      zIndex: 60,
+    }}>
+      <motion.button
         onClick={onPrev}
-        disabled={!canPrev}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        style={btnStyle}
         aria-label="Previous slide"
-        style={btnStyle(canPrev)}
-        onMouseEnter={e => { if (canPrev) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(196,180,154,0.6)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-white)'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = canPrev ? 'rgba(166,166,161,0.4)' : 'rgba(166,166,161,0.1)'; (e.currentTarget as HTMLElement).style.color = canPrev ? 'var(--color-ash)' : 'rgba(166,166,161,0.2)'; }}
       >
-        <ChevronLeft size={16} strokeWidth={1.5} />
-      </button>
-      <button
+        <ChevronLeft size={iconSize} />
+      </motion.button>
+      <motion.button
         onClick={onNext}
-        disabled={!canNext}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        style={btnStyle}
         aria-label="Next slide"
-        style={btnStyle(canNext)}
-        onMouseEnter={e => { if (canNext) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(196,180,154,0.6)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-white)'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = canNext ? 'rgba(166,166,161,0.4)' : 'rgba(166,166,161,0.1)'; (e.currentTarget as HTMLElement).style.color = canNext ? 'var(--color-ash)' : 'rgba(166,166,161,0.2)'; }}
       >
-        <ChevronRight size={16} strokeWidth={1.5} />
-      </button>
+        <ChevronRight size={iconSize} />
+      </motion.button>
     </div>
   );
 }

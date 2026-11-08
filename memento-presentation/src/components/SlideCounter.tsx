@@ -1,42 +1,35 @@
 interface SlideCounterProps {
-  current: number;  // 0-indexed
+  current: number;
   total: number;
 }
 
 export default function SlideCounter({ current, total }: SlideCounterProps) {
-  const display = String(current + 1).padStart(2, '0');
-  const totalDisplay = String(total).padStart(2, '0');
-
+  const pad = (n: number) => String(n).padStart(2, '0');
   return (
-    <div
-      aria-label={`Slide ${current + 1} of ${total}`}
-      style={{
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: '0.3rem',
-        userSelect: 'none',
-      }}
-    >
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.9rem, 1.4vw, 1.3rem)',
-          fontWeight: 300,
-          color: 'var(--color-white)',
-          letterSpacing: '0.05em',
-        }}
-      >
-        {display}
+    <div style={{
+      position: 'absolute',
+      bottom: '2.5%',
+      left: '3%',
+      display: 'flex',
+      alignItems: 'baseline',
+      gap: '0.4rem',
+      zIndex: 60,
+    }}>
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: 'clamp(16px, 1.6vw, 24px)',
+        fontWeight: 600,
+        color: 'var(--color-white)',
+        letterSpacing: '0.05em',
+      }}>
+        {pad(current)}
       </span>
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.65rem, 0.8vw, 0.8rem)',
-          color: 'var(--color-ash)',
-          letterSpacing: '0.1em',
-        }}
-      >
-        / {totalDisplay}
+      <span style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: 'clamp(13px, 1.2vw, 18px)',
+        color: 'var(--color-ash)',
+      }}>
+        / {pad(total)}
       </span>
     </div>
   );
