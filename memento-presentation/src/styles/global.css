@@ -1,0 +1,192 @@
+/* ============================================================
+   MEMENTO – Global CSS Tokens & Base Styles
+   ============================================================ */
+
+@import "tailwindcss";
+
+/* ---- Design Tokens ---------------------------------------- */
+:root {
+  /* Core palette */
+  --color-void:        #0B0B0C;
+  --color-charcoal:    #191A1D;
+  --color-steel:       #263B50;
+  --color-ash:         #A6A6A1;
+  --color-parchment:   #C4B49A;
+  --color-blood:       #8D2929;
+  --color-white:       #F0EDE8;
+  --color-film-grain:  rgba(255,255,255,0.03);
+  --color-vignette:    rgba(0,0,0,0.65);
+
+  /* Extended warm dark */
+  --color-warm-dark:   #160F0A;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'Courier New', monospace;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  1rem;
+  --space-4:  1.5rem;
+  --space-6:  2.5rem;
+  --space-8:  4rem;
+  --space-12: 6rem;
+
+  /* Easing */
+  --ease-cinematic: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-fast:  200ms;
+  --duration-mid:   600ms;
+  --duration-slow:  900ms;
+}
+
+/* ---- Base Reset ------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-void);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ---- Film Grain Animation --------------------------------- */
+@keyframes noise {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-5%, -10%); }
+  20%  { transform: translate(-15%, 5%); }
+  30%  { transform: translate(7%, -25%); }
+  40%  { transform: translate(-5%, 25%); }
+  50%  { transform: translate(-15%, 10%); }
+  60%  { transform: translate(15%, 0%); }
+  70%  { transform: translate(0%, 15%); }
+  80%  { transform: translate(3%, 35%); }
+  90%  { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---- Slide Colour Modes ----------------------------------- */
+.mode-dark-cold   { --slide-bg: var(--color-void);      --slide-text: var(--color-white);    --slide-accent: var(--color-steel); }
+.mode-dark-warm   { --slide-bg: var(--color-warm-dark); --slide-text: var(--color-parchment); --slide-accent: var(--color-blood); }
+.mode-monochrome  { --slide-bg: #111111;                 --slide-text: #E8E8E8;               --slide-accent: #888888; }
+.mode-reveal      { --slide-bg: var(--color-blood);     --slide-text: var(--color-white);    --slide-accent: var(--color-parchment); }
+
+/* ---- Typography Utilities --------------------------------- */
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  line-height: 1;
+}
+
+.text-display-l {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+}
+
+.text-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.3vw, 2.3rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.text-body-l {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.text-body-s {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 0.95vw, 0.95rem);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.text-label {
+  font-family: var(--font-body);
+  font-size: clamp(0.65rem, 0.8vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+}
+
+.text-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ---- Vignette -------------------------------------------- */
+.vignette {
+  background: radial-gradient(ellipse at center,
+    transparent 50%,
+    rgba(0,0,0,0.5) 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- Polaroid style -------------------------------------- */
+.polaroid-frame {
+  background: #f5f0e8;
+  padding: 0.6em 0.6em 2em 0.6em;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ---- Accent line ----------------------------------------- */
+.accent-line {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  background: var(--color-blood);
+}
+
+/* ---- Scrollbar hide -------------------------------------- */
+::-webkit-scrollbar { display: none; }
+
+/* ---- Reduced motion -------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
