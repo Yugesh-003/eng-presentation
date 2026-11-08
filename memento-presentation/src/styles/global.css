@@ -16,8 +16,6 @@
   --color-white:       #F0EDE8;
   --color-film-grain:  rgba(255,255,255,0.03);
   --color-vignette:    rgba(0,0,0,0.65);
-
-  /* Extended warm dark */
   --color-warm-dark:   #160F0A;
 
   /* Typography */
@@ -32,13 +30,9 @@
   --space-4:  1.5rem;
   --space-6:  2.5rem;
   --space-8:  4rem;
-  --space-12: 6rem;
 
   /* Easing */
   --ease-cinematic: cubic-bezier(0.76, 0, 0.24, 1);
-  --duration-fast:  200ms;
-  --duration-mid:   600ms;
-  --duration-slow:  900ms;
 }
 
 /* ---- Base Reset ------------------------------------------- */
@@ -52,7 +46,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--color-void);
+  background: #000;
   color: var(--color-white);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -84,15 +78,17 @@ html, body {
 }
 
 /* ---- Slide Colour Modes ----------------------------------- */
-.mode-dark-cold   { --slide-bg: var(--color-void);      --slide-text: var(--color-white);    --slide-accent: var(--color-steel); }
+.mode-dark-cold   { --slide-bg: var(--color-void);      --slide-text: var(--color-white);     --slide-accent: var(--color-steel); }
 .mode-dark-warm   { --slide-bg: var(--color-warm-dark); --slide-text: var(--color-parchment); --slide-accent: var(--color-blood); }
-.mode-monochrome  { --slide-bg: #111111;                 --slide-text: #E8E8E8;               --slide-accent: #888888; }
-.mode-reveal      { --slide-bg: var(--color-blood);     --slide-text: var(--color-white);    --slide-accent: var(--color-parchment); }
+.mode-monochrome  { --slide-bg: #111111;                 --slide-text: #E8E8E8;                --slide-accent: #888888; }
+.mode-reveal      { --slide-bg: var(--color-blood);     --slide-text: var(--color-white);     --slide-accent: var(--color-parchment); }
 
 /* ---- Typography Utilities --------------------------------- */
+/* All sizes use vw so they scale naturally with the viewport-fitting 16:9 box */
+
 .text-display-xl {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 9vw, 9rem);
+  font-size: clamp(72px, 10vw, 160px);
   font-weight: 300;
   letter-spacing: 0.25em;
   line-height: 1;
@@ -100,7 +96,7 @@ html, body {
 
 .text-display-l {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-size: clamp(52px, 7vw, 110px);
   font-weight: 300;
   letter-spacing: 0.1em;
   line-height: 1.1;
@@ -108,35 +104,35 @@ html, body {
 
 .text-h1 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-size: clamp(38px, 5vw, 76px);
   font-weight: 400;
   line-height: 1.2;
 }
 
 .text-h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.3vw, 2.3rem);
+  font-size: clamp(30px, 3.5vw, 52px);
   font-weight: 400;
   line-height: 1.3;
 }
 
 .text-body-l {
   font-family: var(--font-body);
-  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
+  font-size: clamp(18px, 2vw, 32px);
   font-weight: 300;
   line-height: 1.7;
 }
 
 .text-body-s {
   font-family: var(--font-body);
-  font-size: clamp(0.75rem, 0.95vw, 0.95rem);
+  font-size: clamp(15px, 1.6vw, 24px);
   font-weight: 400;
   line-height: 1.5;
 }
 
 .text-label {
   font-family: var(--font-body);
-  font-size: clamp(0.65rem, 0.8vw, 0.8rem);
+  font-size: clamp(13px, 1.3vw, 20px);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -144,13 +140,13 @@ html, body {
 
 .text-mono {
   font-family: var(--font-mono);
-  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+  font-size: clamp(13px, 1.4vw, 22px);
 }
 
 .text-quote {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  font-size: clamp(26px, 3vw, 46px);
   font-weight: 300;
   line-height: 1.5;
 }
