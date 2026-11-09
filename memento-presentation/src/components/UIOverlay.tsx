@@ -36,6 +36,7 @@ export default function UIOverlay({
           display: 'flex',
           gap: '0.4rem',
           alignItems: 'center',
+          pointerEvents: 'auto',
         }}
       >
         <OverviewButton onClick={onToggleOverview} />
@@ -53,6 +54,7 @@ export default function UIOverlay({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          pointerEvents: 'none',
         }}
       >
         <SlideCounter current={currentSlide} total={totalSlides} />

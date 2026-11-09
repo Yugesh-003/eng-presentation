@@ -32,6 +32,7 @@ export default function NavControls({ onPrev, onNext }: NavControlsProps) {
       display: 'flex',
       gap: 'clamp(8px, 1vw, 16px)',
       zIndex: 60,
+      pointerEvents: 'auto',
     }}>
       <motion.button
         onClick={onPrev}

@@ -27,6 +27,7 @@ export default function SlideOverview({ open, currentSlide, onSelect, onClose }:
             flexDirection: 'column',
             padding: '4%',
             overflow: 'hidden',
+            pointerEvents: 'auto',
           }}
         >
           {/* Header */}

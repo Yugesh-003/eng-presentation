@@ -82,7 +82,7 @@ export default function App() {
 
       {/* Persistent UI chrome */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 60, pointerEvents: 'none' }}>
-        <div style={{ pointerEvents: 'auto', position: 'relative', width: '100%', height: '100%' }}>
+        <div style={{ pointerEvents: 'none', position: 'relative', width: '100%', height: '100%' }}>
           <UIOverlay
             currentSlide={currentSlide}
             totalSlides={totalSlides}
@@ -95,7 +95,7 @@ export default function App() {
       </div>
 
       {/* Slide overview overlay */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 100 }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 100, pointerEvents: overviewOpen ? 'auto' : 'none' }}>
         <SlideOverview
           open={overviewOpen}
           currentSlide={currentSlide}
