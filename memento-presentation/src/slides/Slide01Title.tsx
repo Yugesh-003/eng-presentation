@@ -19,7 +19,7 @@ export default function Slide01Title() {
 
       {/* Top label */}
       <motion.div initial={{ opacity:0, y:-20 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.6, duration:0.8 }}
-        style={{ position:'absolute', top:'7%', left:'50%', transform:'translateX(-50%)', fontFamily:'var(--font-body)', fontSize:'clamp(13px, 1.3vw, 20px)', letterSpacing:'0.35em', textTransform:'uppercase', color:'var(--color-ash)', whiteSpace:'nowrap' }}>
+        style={{ position:'absolute', top:'7%', left:'25%', transform:'translateX(-50%)', fontFamily:'var(--font-body)', fontSize:'clamp(13px, 1.3vw, 20px)', letterSpacing:'0.35em', textTransform:'uppercase', color:'var(--color-ash)', whiteSpace:'nowrap' }}>
         Career Development Skills — Movie Review &amp; Analysis
       </motion.div>
 
@@ -53,7 +53,7 @@ export default function Slide01Title() {
 
       <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:2.5, duration:1 }}
         style={{ position:'absolute', bottom:'7%', left:'50%', transform:'translateX(-50%)', fontFamily:'var(--font-body)', fontSize:'clamp(12px, 1.1vw, 18px)', letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(166,166,161,0.5)', whiteSpace:'nowrap' }}>
-        Directed by Christopher Nolan
+        Yugesh A - 242237
       </motion.div>
     </div>
   );
