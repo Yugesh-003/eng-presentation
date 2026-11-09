@@ -1,8 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { staggerContainer, fadeUp } from '../animations/variants';
-import { staggerWords, polaroidDrop, kenBurns, killTweens } from '../animations/gsapHelpers';
+import { kenBurns, staggerWords, polaroidDrop, killTweens } from '../animations/gsapHelpers';
 import AssetImage from '../components/AssetImage';
+
+const FS = {
+  tag:    'clamp(13px, 1.3vw, 20px)',
+  h1:     'clamp(38px, 5vw, 76px)',
+  h2:     'clamp(16px, 1.6vw, 24px)',
+  body:   'clamp(16px, 1.6vw, 24px)',
+  mono:   'clamp(16px, 1.6vw, 24px)',
+  monoBig:'clamp(20px, 2.1vw, 32px)',
+  caption:'clamp(13px, 1.3vw, 20px)',
+};
 
 const tattoos = [
   'John G. raped and murdered my wife.',
@@ -12,267 +21,85 @@ const tattoos = [
   'I am not a killer.',
 ];
 
+const polaroids = [
+  { src:'/assets/characters/natalie.jpg', alt:'Polaroid — Sammy Jankis', caption:'SHE\'LL HELP OUT OF PITY', rotate:4,  top:'10%', right:'33%',  delay:0.4 },
+  { src:'/assets/characters/teddy.jpg',    alt:'Polaroid — Leonard',       caption:'DONT BELIVE HIS LIES',       rotate:-5, top:'68%', right:'28%', delay:0.9 },
+];
+
 export default function Slide06Leonard() {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const polaroidRef = useRef<HTMLDivElement>(null);
-  const tattooRefs = useRef<HTMLDivElement[]>([]);
+  const bgRef  = useRef<HTMLDivElement>(null);
+  const tatRef = useRef<HTMLDivElement>(null);
+  const polRefs = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    if (bgRef.current) kenBurns(bgRef.current, 'in');
-    if (polaroidRef.current) polaroidDrop(polaroidRef.current, 0.8, 5);
-
-    const els = tattooRefs.current.filter(Boolean);
-    if (els.length) staggerWords(els, 1.0);
-
+    if (bgRef.current)  kenBurns(bgRef.current, 'in');
+    if (tatRef.current) staggerWords(tatRef.current.querySelectorAll<HTMLElement>('[data-word]'), 1.2);
+    polRefs.current.filter(Boolean).forEach((el, i) => polaroidDrop(el, polaroids[i].delay, polaroids[i].rotate));
     return () => {
-      if (bgRef.current) killTweens(bgRef.current);
-      if (polaroidRef.current) killTweens(polaroidRef.current);
-      els.forEach(killTweens);
+      if (bgRef.current)  killTweens(bgRef.current);
+      if (tatRef.current) killTweens(tatRef.current);
+      polRefs.current.forEach(killTweens);
     };
   }, []);
-
+// c:\Users\Yugesh\.gemini\antigravity\brain\87fec264-0899-4d88-ae22-9f0cdd5bdc7b\assets_needed.md
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      height: '100%',
-      background: '#0a0a0b',
-      overflow: 'hidden',
-    }}>
-      {/* Background: Leonard image */}
-      <div ref={bgRef} style={{ position: 'absolute', inset: '-5%', transformOrigin: 'center' }}>
-        <AssetImage
-          src="/assets/characters/leonard-bw.png"
-          alt="Leonard Shelby black and white"
-          placeholderLabel="Leonard — B&W Investigation"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center top',
-            filter: 'grayscale(1) brightness(0.3) contrast(1.3)',
-          }}
-        />
+    <div style={{ position:'relative', width:'100%', height:'100%', background:'var(--color-void)', overflow:'hidden', display:'grid', gridTemplateColumns:'50% 50%' }}>
+      <div ref={bgRef} style={{ position:'absolute', inset:'-5%', transformOrigin:'center' }}>
+        <AssetImage src="/assets/characters/leonard-color.png" alt="Leonard Shelby" placeholderLabel="Leonard Shelby"
+          style={{ width:'100%', height:'100%', objectFit:'cover', filter:'brightness(0.18) contrast(1.2) grayscale(0.6)' }} />
       </div>
+      <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse at 30% 50%, rgba(38,59,80,0.15) 0%, transparent 60%)' }} />
+      <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(11,11,12,0.3) 40%, rgba(11,11,12,0.6) 100%)' }} />
 
-      {/* Vignette */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%)',
-      }} />
+      {/* Left column */}
+      <div style={{ position:'relative', zIndex:2, padding:'6% 4% 6% 7%', display:'flex', flexDirection:'column', justifyContent:'center', gap:'1.4rem' }}>
+        <motion.div initial={{ opacity:0, y:-15 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.7 }}>
+          <span style={{ fontFamily:'var(--font-body)', fontSize:FS.tag, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--color-blood)', display:'block', marginBottom:'0.4rem' }}>Character Study</span>
+          <h1 style={{ fontFamily:'var(--font-display)', fontSize:FS.h1, fontWeight:300, color:'var(--color-white)', lineHeight:1.15 }}>Understanding<br />Leonard Shelby</h1>
+        </motion.div>
 
-      {/* Top title */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-        style={{
-          position: 'absolute',
-          top: '7%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          textAlign: 'center',
-          zIndex: 2,
-        }}
-      >
-        <span style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.58rem, 0.72vw, 0.72rem)',
-          letterSpacing: '0.25em',
-          textTransform: 'uppercase',
-          color: 'var(--color-blood)',
-          display: 'block',
-          marginBottom: '0.3rem',
-        }}>
-          Character Study
-        </span>
-        <h1 style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(2rem, 3vw, 3rem)',
-          fontWeight: 300,
-          color: 'var(--color-white)',
-        }}>
-          Understanding Leonard Shelby
-        </h1>
-      </motion.div>
-
-      {/* Left: condition notes */}
-      <div style={{
-        position: 'absolute',
-        left: '5%',
-        top: '25%',
-        bottom: '15%',
-        width: '32%',
-        zIndex: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-      }}>
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-        >
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.58rem, 0.7vw, 0.7rem)',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--color-parchment)',
-            marginBottom: '0.5rem',
-          }}>
-            Medical Condition
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(0.9rem, 1.2vw, 1.2rem)',
-            fontWeight: 400,
-            color: 'var(--color-white)',
-            fontStyle: 'italic',
-            marginBottom: '0.5rem',
-          }}>
-            Anterograde Amnesia
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.72rem, 0.9vw, 0.9rem)',
-            fontWeight: 300,
-            color: 'var(--color-ash)',
-            lineHeight: 1.6,
-          }}>
-            Leonard cannot form new memories after the traumatic incident that killed his wife. Every time he falls asleep or loses focus, he forgets. He awakens to a world without context.
+        <motion.div initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.4, duration:0.7 }}>
+          <div style={{ fontFamily:'var(--font-body)', fontSize:FS.h2, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--color-ash)', marginBottom:'0.5rem' }}>Medical Condition</div>
+          <div style={{ fontFamily:'var(--font-display)', fontStyle:'italic', fontSize:'clamp(22px, 2.3vw, 36px)', color:'var(--color-parchment)', marginBottom:'0.5rem' }}>Anterograde Amnesia</div>
+          <div style={{ fontFamily:'var(--font-body)', fontSize:FS.body, fontWeight:300, color:'var(--color-ash)', lineHeight:1.65 }}>
+            Leonard cannot form new memories after the traumatic incident. Every time he falls asleep or loses focus, he forgets. He awakens to a world without context.
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.8, duration: 0.7 }}
-        >
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.58rem, 0.7vw, 0.7rem)',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--color-parchment)',
-            marginBottom: '0.5rem',
-          }}>
-            His System
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.72rem, 0.9vw, 0.9rem)',
-            fontWeight: 300,
-            color: 'var(--color-ash)',
-            lineHeight: 1.6,
-          }}>
+        <motion.div initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.7, duration:0.7 }}>
+          <div style={{ fontFamily:'var(--font-body)', fontSize:FS.h2, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--color-ash)', marginBottom:'0.5rem' }}>His System</div>
+          <div style={{ fontFamily:'var(--font-body)', fontSize:FS.body, fontWeight:300, color:'var(--color-ash)', lineHeight:1.65 }}>
             To compensate, he uses three tools: Polaroid photographs with handwritten notes, paper notes carried on his person, and permanent tattoos on his own body for the most critical truths.
           </div>
         </motion.div>
       </div>
 
-      {/* Center: tattoo text words */}
-      <div style={{
-        position: 'absolute',
-        left: '38%',
-        right: '28%',
-        top: '25%',
-        bottom: '15%',
-        zIndex: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.6rem',
-        justifyContent: 'center',
-      }}>
-        <div style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.55rem, 0.68vw, 0.68rem)',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          color: 'var(--color-blood)',
-          marginBottom: '0.5rem',
-        }}>
-          Tattoos — His Only Truth
-        </div>
-        {tattoos.map((t, i) => (
-          <div
-            key={i}
-            ref={el => { if (el) tattooRefs.current[i] = el; }}
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(0.68rem, 0.9vw, 0.9rem)',
-              color: 'var(--color-parchment)',
-              lineHeight: 1.4,
-              opacity: 0,
-              borderLeft: '2px solid rgba(141,41,41,0.5)',
-              paddingLeft: '0.75rem',
-            }}
-          >
-            {t}
+      {/* Right column — tattoos + polaroids */}
+      <div style={{ position:'relative', zIndex:2, padding:'6% 5%', display:'flex', flexDirection:'column', justifyContent:'center' }}>
+        <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1, duration:0.8 }} style={{ marginBottom:'1.5rem' }}>
+          <div style={{ fontFamily:'var(--font-body)', fontSize:FS.tag, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--color-parchment)', display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'1rem' }}>
+            <div style={{ width:'2rem', height:'1px', background:'var(--color-parchment)' }} />
+            Tattoos — His Only Truth
+            <div style={{ flex:1, height:'1px', background:'rgba(196,180,154,0.3)' }} />
+          </div>
+          <div ref={tatRef} style={{ display:'flex', flexDirection:'column', gap:'0.6rem' }}>
+            {tattoos.map((t, i) => (
+              <div key={i} data-word style={{ fontFamily:'var(--font-mono)', fontSize:FS.monoBig, color:'var(--color-white)', borderLeft:'2px solid var(--color-blood)', paddingLeft:'0.75rem', opacity:0, lineHeight:1.4 }}>{t}</div>
+            ))}
+          </div>
+        </motion.div>
+
+        {polaroids.map((p, i) => (
+          <div key={i} ref={el => { if (el) polRefs.current[i] = el; }}
+            style={{ position:'absolute', top:p.top, right:p.right, width:'clamp(100px, 12vw, 180px)', opacity:0, zIndex:3 }}>
+            <div className="polaroid-frame">
+              <AssetImage src={p.src} alt={p.alt} placeholderLabel={p.alt}
+                style={{ width:'100%', aspectRatio:'1', objectFit:'cover', display:'block', filter:'sepia(0.2) brightness(0.9)' }} />
+              <div style={{ fontFamily:'var(--font-mono)', fontSize:'clamp(11px, 1.1vw, 16px)', color:'#333', textAlign:'center', paddingTop:'0.4rem', lineHeight:1.4 }}>{p.caption}</div>
+            </div>
           </div>
         ))}
       </div>
-
-      {/* Right: Polaroid of Sammy */}
-      <div
-        ref={polaroidRef}
-        style={{
-          position: 'absolute',
-          right: '5%',
-          bottom: '15%',
-          width: 'clamp(7rem, 11vw, 11rem)',
-          zIndex: 3,
-          opacity: 0,
-        }}
-      >
-        <div className="polaroid-frame">
-          <AssetImage
-            src="/assets/polaroids/polaroid-sammy.jpg"
-            alt="Polaroid of Sammy Jankis"
-            placeholderLabel="Polaroid — Sammy Jankis"
-            style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', display: 'block', filter: 'sepia(0.3)' }}
-          />
-          <div style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.55rem, 0.68vw, 0.68rem)',
-            color: '#333',
-            textAlign: 'center',
-            paddingTop: '0.3rem',
-          }}>
-            Remember Sammy Jankis
-          </div>
-        </div>
-      </div>
-
-      {/* Handwritten note top-right */}
-      <motion.div
-        initial={{ opacity: 0, rotate: -3 }}
-        animate={{ opacity: 1, rotate: -3 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        style={{
-          position: 'absolute',
-          top: '18%',
-          right: '5%',
-          width: 'clamp(7rem, 10vw, 10rem)',
-          background: '#f5f0d8',
-          padding: '0.6rem',
-          zIndex: 3,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
-        }}
-      >
-        <div style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'clamp(0.55rem, 0.7vw, 0.7rem)',
-          color: '#222',
-          lineHeight: 1.6,
-        }}>
-          Do NOT trust<br />
-          his lies.<br />
-          Use the system.<br />
-          <br />
-          — L.S.
-        </div>
-      </motion.div>
     </div>
   );
 }
