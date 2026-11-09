@@ -27,10 +27,10 @@ export default function Slide16Learnings() {
         <AssetImage src="/assets/backgrounds/void-bg.jpg" alt="Atmospheric dark background" placeholderLabel="Atmospheric Scene"
           style={{ width:'100%', height:'100%', objectFit:'cover', filter:'brightness(0.5) sepia(0.3)' }} />
         <div style={{ position:'absolute', inset:0, background:'linear-gradient(to right, transparent 40%, var(--color-warm-dark) 100%)' }} />
-        <div style={{ position:'absolute', bottom:'8%', left:'50%', transform:'translateX(-50%) rotate(-90deg)', transformOrigin:'center',
+        {/* <div style={{ position:'absolute', bottom:'18%', left:'10%', transform:'translateX(-50%) rotate(-90deg)', transformOrigin:'center',
           fontFamily:'var(--font-body)', fontSize:FS.tag, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(196,180,154,0.4)', whiteSpace:'nowrap' }}>
           Key Learnings
-        </div>
+        </div> */}
       </motion.div>
 
       <div style={{ padding:'6% 7% 6% 4%', display:'flex', flexDirection:'column', justifyContent:'center', zIndex:1 }}>

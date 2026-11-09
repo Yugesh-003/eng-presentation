@@ -22,7 +22,7 @@ export default function SlideCounter({ current, total }: SlideCounterProps) {
         color: 'var(--color-white)',
         letterSpacing: '0.05em',
       }}>
-        {pad(current)}
+        {pad(current +1 )}
       </span>
       <span style={{
         fontFamily: 'var(--font-mono)',
